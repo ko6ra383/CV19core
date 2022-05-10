@@ -6,7 +6,42 @@
         xmlns:local="clr-namespace:CV19"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-
-    </Grid>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="Файл">
+                <MenuItem Header="Выход"/>
+            </MenuItem>
+            <MenuItem Header="Справка">
+                <MenuItem Header="О программе"/>
+            </MenuItem>
+        </Menu>
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBarItem>
+                <TextBlock Text="Готово!" Margin="5 0 20 0"/>
+            </StatusBarItem>
+            <StatusBarItem>
+                <ProgressBar Width="100" Height="10" Value="80"/>
+            </StatusBarItem>
+        </StatusBar>
+        <TabControl>
+            <TabItem Header="Тест данные">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="26*"/>
+                        <RowDefinition Height="35*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Rectangle Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Width="300" Height="150" Fill="Teal"/>
+                    <GridSplitter Grid.Column="0" Grid.RowSpan="2" Grid.Row="0" Width="4" HorizontalAlignment="Right"/>
+                    <Ellipse HorizontalAlignment="Right" Height="50" Width="100" Fill="ForestGreen"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="График">
+                
+            </TabItem>
+        </TabControl>
+    </DockPanel>
 </Window>
