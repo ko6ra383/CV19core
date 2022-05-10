@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:CV19.ViewsModels"
+        xmlns:fa="http://schemas.fontawesome.com/icons/"
         xmlns:local="clr-namespace:CV19"
         mc:Ignorable="d"
         Title="{Binding Title}" Height="450" Width="800">
@@ -13,21 +14,31 @@
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Файл">
-                <MenuItem Header="Выход"/>
+                <MenuItem Header="Выход" Command="{Binding CloseApplicationCommand}"/>
             </MenuItem>
             <MenuItem Header="Справка">
                 <MenuItem Header="О программе"/>
             </MenuItem>
+            <MenuItem>
+                <MenuItem.Header>
+                    <fa:FontAwesome Icon="Regular_ArrowAltCircleLeft" Foreground="Gray" FontSize="20"/>
+                </MenuItem.Header>
+            </MenuItem>
+            <MenuItem>
+                <MenuItem.Header>
+                    <fa:FontAwesome Icon="Regular_ArrowAltCircleRight" Foreground="Gray" FontSize="20"/>
+                </MenuItem.Header>
+            </MenuItem>
         </Menu>
         <StatusBar DockPanel.Dock="Bottom">
             <StatusBarItem>
-                <TextBlock Text="Готово!" Margin="5 0 20 0"/>
+                <TextBlock Text="{Binding Status}" Margin="5 0 20 0"/>
             </StatusBarItem>
             <StatusBarItem>
-                <ProgressBar Width="100" Height="10" Value="80"/>
+                <ProgressBar Width="100" Height="10" Value="{Binding SelectedTabIndex}" Maximum="{Binding ElementName=tab, Path=Items.Count}"/>
             </StatusBarItem>
         </StatusBar>
-        <TabControl>
+        <TabControl x:Name="tab">
             <TabItem Header="Тест данные">
                 <Grid>
                     <Grid.RowDefinitions>

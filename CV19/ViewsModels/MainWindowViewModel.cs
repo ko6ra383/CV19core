@@ -1,9 +1,12 @@
-﻿using CV19.ViewsModels.Base;
+﻿using CV19.Infrastructure.Commands;
+using CV19.ViewsModels.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
 
 namespace CV19.ViewsModels
 {
@@ -21,16 +24,41 @@ namespace CV19.ViewsModels
         }
 
         #endregion
+        #region Статус программы
+        /// <summary>Статус программы</summary>
+        private string _Status = "Готово";
+        /// <summary>Статус программы</summary>
+        public string Status
+        {
+            get => _Status;
+            set => Set(ref _Status, value);
+        }
+        #endregion
 
+        #region Текущая вкладка
+        private int _SelectedTabIndex = 0;
+        public int SelectedTabIndex
+        {
+            get => _SelectedTabIndex;
+            set => Set(ref _SelectedTabIndex, value);
+        }
+        #endregion
         #endregion
 
         #region Команды
-
+        #region CloseApplicationCommand
+        public ICommand CloseApplicationCommand { get; }
+        private bool CanCloseApplicationCommandExecute(object p) => true;
+        private void OnCloseApplicationCommandExecuting(object p)
+        {
+            Application.Current.Shutdown();
+        }
+        #endregion
         #endregion
         public MainWindowViewModel()
         {
             #region Команды
-
+            CloseApplicationCommand = new LambdaCommand(OnCloseApplicationCommandExecuting, CanCloseApplicationCommandExecute);
             #endregion
         }
     }
