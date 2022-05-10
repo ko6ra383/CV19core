@@ -1,5 +1,7 @@
 ﻿using CV19.Infrastructure.Commands;
 using CV19.ViewsModels.Base;
+using OxyPlot;
+using OxyPlot.Series;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,6 +45,17 @@ namespace CV19.ViewsModels
             set => Set(ref _SelectedTabIndex, value);
         }
         #endregion
+        #region TestDataPoints
+        /// <summary>Тестовый набор данных для визуализации графиков</summary>
+        public PlotModel Graf { get; set; }
+
+        private IEnumerable<OxyPlot.DataPoint> _TestDataPoints;
+        public IEnumerable<OxyPlot.DataPoint> TestDataPoints
+        {
+            get => _TestDataPoints;
+            set => Set(ref _TestDataPoints, value);
+        }
+        #endregion
         #endregion
 
         #region Команды
@@ -70,6 +83,24 @@ namespace CV19.ViewsModels
             CloseApplicationCommand = new LambdaCommand(OnCloseApplicationCommandExecuting, CanCloseApplicationCommandExecute);
             ChangePageCommand = new LambdaCommand(OnChangePageCommandExecuting, CanChangePageCommandExecute);
             #endregion
+
+            var data_points = new List<OxyPlot.DataPoint>((int)(360 / 0.1));
+            for (var x = 0d; x <= 360; x += 0.1)
+            {
+                const double to_rad = Math.PI / 180;
+                var y = Math.Sin(x * to_rad);
+
+                data_points.Add(new OxyPlot.DataPoint(x, y));
+            }
+            TestDataPoints = data_points;
+            var series = new LineSeries();
+            foreach (var dataPoint in data_points)
+            {
+                series.Points.Add(dataPoint);
+            }
+            Graf = new PlotModel();
+            Graf.PlotType = PlotType.XY;
+            Graf.Series.Add(series);
         }
     }
 }
