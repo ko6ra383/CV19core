@@ -6,7 +6,7 @@ namespace CV19.Models.Decanat
     public class Student
     {
         public string Name { get; set; }
-        public string SurName { get; set; }
+        public string Surname { get; set; }
         public DateTime Birtday { get; set; }
         public double Rating { get; set; }
     }
@@ -15,4 +15,5 @@ namespace CV19.Models.Decanat
     {
         public string Name { get; set; }
         public ICollection<Student> Students { get; set; }
+    }
 }
