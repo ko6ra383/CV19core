@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace CV19.ViewsModels
 {
-    internal class MainWindowViewModel:BaseViewModel
+    public class MainWindowViewModel:BaseViewModel
     {
         #region Свойства
 
         #region Заголовок окна
-        private string _Title;
+        private string _Title = "анализ CV19";
 
         public string Title
         {
