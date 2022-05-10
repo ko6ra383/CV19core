@@ -1,12 +1,12 @@
 ﻿using CV19.Infrastructure.Commands;
+using CV19.Models.Decanat;
 using CV19.ViewsModels.Base;
 using OxyPlot;
 using OxyPlot.Series;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -14,7 +14,17 @@ namespace CV19.ViewsModels
 {
     public class MainWindowViewModel:BaseViewModel
     {
+        /* ------------------------------------------------------------------------------------------------------------------- */
         #region Свойства
+        public ObservableCollection<Group> Groups { get; set; }
+        #region SelectedGroup
+        private Group _SelectedGroup;
+        public Group SelectedGroup
+        {
+            get { return _SelectedGroup; }
+            set { Set(ref _SelectedGroup, value); }
+        }
+        #endregion
 
         #region Заголовок окна
         private string _Title = "анализ CV19";
@@ -26,6 +36,7 @@ namespace CV19.ViewsModels
         }
 
         #endregion
+
         #region Статус программы
         /// <summary>Статус программы</summary>
         private string _Status = "Готово";
@@ -45,6 +56,7 @@ namespace CV19.ViewsModels
             set => Set(ref _SelectedTabIndex, value);
         }
         #endregion
+
         #region TestDataPoints
         /// <summary>Тестовый набор данных для визуализации графиков</summary>
         public PlotModel Graf { get; set; }
@@ -58,7 +70,12 @@ namespace CV19.ViewsModels
         #endregion
         #endregion
 
+        /* ------------------------------------------------------------------------------------------------------------------- */
+
         #region Команды
+
+
+
         #region CloseApplicationCommand
         public ICommand CloseApplicationCommand { get; }
         private bool CanCloseApplicationCommandExecute(object p) => true;
@@ -77,6 +94,8 @@ namespace CV19.ViewsModels
         }
         #endregion
         #endregion
+
+        /* ------------------------------------------------------------------------------------------------------------------- */
         public MainWindowViewModel()
         {
             #region Команды
@@ -101,6 +120,22 @@ namespace CV19.ViewsModels
             Graf = new PlotModel();
             Graf.PlotType = PlotType.XY;
             Graf.Series.Add(series);
+
+            var students = Enumerable.Range(1, 10).Select(i => new Student
+            {
+                Name = $"Name {i}",
+                Surname = $"Surname {i}",
+                Birtday = DateTime.Now,
+                Rating = 0
+            });
+            var groups = Enumerable.Range(1, 20).Select(i => new Group
+            {
+                Name = $"Группа {i}",
+                Students = new ObservableCollection<Student>(students)
+            });
+            Groups = new ObservableCollection<Group>(groups);
         }
+
+        /* ------------------------------------------------------------------------------------------------------------------- */
     }
 }
