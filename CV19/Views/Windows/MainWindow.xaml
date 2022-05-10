@@ -19,12 +19,12 @@
             <MenuItem Header="Справка">
                 <MenuItem Header="О программе"/>
             </MenuItem>
-            <MenuItem>
+            <MenuItem Command="{Binding ChangePageCommand}" CommandParameter="-1">
                 <MenuItem.Header>
                     <fa:FontAwesome Icon="Regular_ArrowAltCircleLeft" Foreground="Gray" FontSize="20"/>
                 </MenuItem.Header>
             </MenuItem>
-            <MenuItem>
+            <MenuItem Command="{Binding ChangePageCommand}" CommandParameter="+1">
                 <MenuItem.Header>
                     <fa:FontAwesome Icon="Regular_ArrowAltCircleRight" Foreground="Gray" FontSize="20"/>
                 </MenuItem.Header>
@@ -37,8 +37,11 @@
             <StatusBarItem>
                 <ProgressBar Width="100" Height="10" Value="{Binding SelectedTabIndex}" Maximum="{Binding ElementName=tab, Path=Items.Count}"/>
             </StatusBarItem>
+            <StatusBarItem>
+                <TextBlock Text="{Binding SelectedTabIndex}" Margin="10 0 0 0" FontSize="14"/>
+            </StatusBarItem>
         </StatusBar>
-        <TabControl x:Name="tab">
+        <TabControl x:Name="tab" SelectedIndex="{Binding SelectedTabIndex}">
             <TabItem Header="Тест данные">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -57,6 +60,16 @@
             <TabItem Header="График">
                 
             </TabItem>
+            <TabItem Header="Вкладка 3">
+                
+            </TabItem>
+            <TabItem Header="Вкладка 4">
+                
+            </TabItem>
+            <TabItem Header="Вкладка 5">
+                
+            </TabItem>
+            
         </TabControl>
     </DockPanel>
 </Window>

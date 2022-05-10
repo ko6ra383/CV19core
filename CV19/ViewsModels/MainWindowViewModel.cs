@@ -54,11 +54,21 @@ namespace CV19.ViewsModels
             Application.Current.Shutdown();
         }
         #endregion
+        #region ChangePageCommand
+        public ICommand ChangePageCommand { get; }
+        private bool CanChangePageCommandExecute(object p) => SelectedTabIndex >= 0;
+        private void OnChangePageCommandExecuting(object p)
+        {
+            if (p is null) return;
+            SelectedTabIndex += Convert.ToInt32(p);
+        }
+        #endregion
         #endregion
         public MainWindowViewModel()
         {
             #region Команды
             CloseApplicationCommand = new LambdaCommand(OnCloseApplicationCommandExecuting, CanCloseApplicationCommandExecute);
+            ChangePageCommand = new LambdaCommand(OnChangePageCommandExecuting, CanChangePageCommandExecute);
             #endregion
         }
     }
