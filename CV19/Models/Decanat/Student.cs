@@ -9,6 +9,7 @@ namespace CV19.Models.Decanat
         public string Surname { get; set; }
         public DateTime Birtday { get; set; }
         public double Rating { get; set; }
+        public string Description { get; set; }
     }
 
     public class Group
