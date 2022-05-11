@@ -1,0 +1,17 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:decanat="clr-namespace:CV19.Models.Decanat"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+    <DataTemplate DataType="{x:Type decanat:Group}">
+        <TextBlock Text="{Binding Name}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type decanat:Student}" >
+        <TextBlock Text="{Binding Name}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type sys:String}">
+        <TextBlock Text="{Binding}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type sys:Int32}">
+        <TextBlock Text="{Binding}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"/>
+    </DataTemplate>
+</ResourceDictionary>

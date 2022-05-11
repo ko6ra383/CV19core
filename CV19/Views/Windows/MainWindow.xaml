@@ -6,9 +6,9 @@
         xmlns:oxy="http://oxyplot.org/wpf"
         xmlns:vm="clr-namespace:CV19.ViewsModels"
         xmlns:decanat="clr-namespace:CV19.Models.Decanat"
+        xmlns:sys="clr-namespace:System;assembly=System.Runtime"
         xmlns:fa="http://schemas.fontawesome.com/icons/"
         xmlns:local="clr-namespace:CV19"
-        xmlns:sys="clr-namespace:System;assembly=System.Runtime"
         mc:Ignorable="d"
         Title="{Binding Title}" Height="450" Width="800">
     <Window.DataContext>
@@ -70,9 +70,7 @@
                             
                         </DockPanel>
                     </GroupBox>
-                    <GroupBox Header="{Binding Path=SelectedGroup.Name,
-                        StringFormat='Студенты группы {0}', FallbackValue='Студенты', TargetNullValue='Группа не выбрана'}"
-                              Grid.Column="1">
+                    <GroupBox Header="Выбранный элемент" Grid.Column="1">
                         <DataGrid ItemsSource="{Binding SelectedGroup.Students}" DisplayMemberPath="Name"
                                   AutoGenerateColumns="False" CanUserAddRows="False"
                                   HorizontalGridLinesBrush="Transparent"
@@ -113,22 +111,11 @@
                             <TextBlock Text="Элементы"/>
                         </GroupBox.Header>
                         <GroupBox.Resources>
-                            <DataTemplate DataType="{x:Type decanat:Group}">
-                                <TextBlock Text="{Binding Name}"/>
-                            </DataTemplate>
-                            <DataTemplate DataType="{x:Type decanat:Student}">
-                                <TextBlock Text="{Binding Name}"/>
-                            </DataTemplate>
-                            <DataTemplate DataType="{x:Type sys:String}">
-                                <TextBlock>
-                                    <Run>Строка: </Run> <TextBlock Text="{Binding}"/>
-                                </TextBlock>
-                            </DataTemplate>
-                            <DataTemplate DataType="{x:Type sys:Int32}">
-                                <TextBlock>
-                                    Число: <TextBlock Text="{Binding}"/>
-                                </TextBlock>
-                            </DataTemplate>
+                            <ResourceDictionary>
+                                <ResourceDictionary.MergedDictionaries>
+                                    <ResourceDictionary Source="../../Resources/DataTemplates/ListItemsDataTemplates.xaml"/>
+                                </ResourceDictionary.MergedDictionaries>
+                            </ResourceDictionary>
                         </GroupBox.Resources>
                         <ListBox Grid.Column="0" ItemsSource="{Binding CompositeCollection}" SelectedItem="{Binding SelectedCompositeValue}">
                         </ListBox>
@@ -138,18 +125,11 @@
                             <TextBlock Text="Элементы"/>
                         </GroupBox.Header>
                         <GroupBox.Resources>
-                            <DataTemplate DataType="{x:Type decanat:Group}">
-                                <TextBlock Text="{Binding Name}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"/>
-                            </DataTemplate>
-                            <DataTemplate DataType="{x:Type decanat:Student}" >
-                                <TextBlock Text="{Binding Name}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"/>
-                            </DataTemplate>
-                            <DataTemplate DataType="{x:Type sys:String}">
-                                <TextBlock Text="{Binding}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"/>
-                            </DataTemplate>
-                            <DataTemplate DataType="{x:Type sys:Int32}">
-                                <TextBlock Text="{Binding}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"/>
-                            </DataTemplate>
+                            <ResourceDictionary>
+                                <ResourceDictionary.MergedDictionaries>
+                                    <ResourceDictionary Source="../../Resources/DataTemplates/ItemsControlDataTemplates.xaml"/>
+                                </ResourceDictionary.MergedDictionaries>
+                            </ResourceDictionary>
                         </GroupBox.Resources>
                         <ContentControl Content="{Binding SelectedCompositeValue}"/>
                     </GroupBox>
