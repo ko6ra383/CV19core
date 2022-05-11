@@ -106,6 +106,33 @@ namespace CV19.ViewsModels
             SelectedTabIndex += Convert.ToInt32(p);
         }
         #endregion
+
+        #region CreateNewGroup
+        public ICommand CreateNewGroup { get; }
+        private bool CanCreateNewGroupExecute(object p) => true;
+        private void OnCreateNewGroupExecuting(object p)
+        { 
+            var groupMaxId = Convert.ToInt32(Groups.Last().Name.Split()[1]) + 1;
+            var newGroup = new Group
+            {
+                Name = $"Группа {groupMaxId}",
+                Students = new ObservableCollection<Student>()
+            };
+            Groups.Add(newGroup);
+        }
+        #endregion
+        #region DeleteGroup
+        public ICommand DeleteGroup { get; }
+        private bool CanDeleteGroupExecute(object p) => p is Group group && Groups.Contains(group);
+        private void OnDeleteGroupExecuting(object p)
+        {
+            if (!(p is Group group)) return;
+            var id = Groups.IndexOf(group);
+            Groups.Remove(group);
+            if (id < Groups.Count)
+                SelectedGroup = Groups[id];
+        }
+        #endregion
         #endregion
 
         /* ------------------------------------------------------------------------------------------------------------------- */
@@ -114,6 +141,8 @@ namespace CV19.ViewsModels
             #region Команды
             CloseApplicationCommand = new LambdaCommand(OnCloseApplicationCommandExecuting, CanCloseApplicationCommandExecute);
             ChangePageCommand = new LambdaCommand(OnChangePageCommandExecuting, CanChangePageCommandExecute);
+            CreateNewGroup = new LambdaCommand(OnCreateNewGroupExecuting, CanChangePageCommandExecute);
+            DeleteGroup = new LambdaCommand(OnDeleteGroupExecuting, CanDeleteGroupExecute);
             #endregion
 
             var data_points = new List<OxyPlot.DataPoint>((int)(360 / 0.1));
