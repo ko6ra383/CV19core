@@ -16,8 +16,21 @@ namespace CV19.ViewsModels
     {
         /* ------------------------------------------------------------------------------------------------------------------- */
         #region Свойства
-        public ObservableCollection<Group> Groups { get; set; }
+        #region Непонятный элемент
+        public object[] CompositeCollection { get; }
+        private object _SelectedCompositeValue;
+
+        public object SelectedCompositeValue
+        {
+            get { return _SelectedCompositeValue; }
+            set { Set(ref _SelectedCompositeValue, value); }
+        }
+
+        #endregion
+
+
         #region SelectedGroup
+        public ObservableCollection<Group> Groups { get; set; }
         private Group _SelectedGroup;
         public Group SelectedGroup
         {
@@ -134,6 +147,14 @@ namespace CV19.ViewsModels
                 Students = new ObservableCollection<Student>(students)
             });
             Groups = new ObservableCollection<Group>(groups);
+
+            var dataList = new List<object>();
+            dataList.Add("Hello world");
+            dataList.Add(228);
+            var group = Groups[1];
+            dataList.Add(group);
+            dataList.Add(group.Students[1]);
+            CompositeCollection = dataList.ToArray();
         }
 
         /* ------------------------------------------------------------------------------------------------------------------- */
