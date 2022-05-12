@@ -11,6 +11,9 @@
         xmlns:local="clr-namespace:CV19"
         mc:Ignorable="d"
         Title="{Binding Title}" Height="450" Width="800">
+    <Window.Resources>
+        
+    </Window.Resources>
     <Window.DataContext>
         <vm:MainWindowViewModel/>
     </Window.DataContext>
@@ -54,8 +57,26 @@
                     <GroupBox Header="Группы" Grid.Column="0">
                         <DockPanel>
                             <UniformGrid DockPanel.Dock="Bottom" Rows="1" Margin="0,3">
-                                <Button Content="Добавить" Style="{StaticResource PrimatyBtn}" Command="{Binding CreateNewGroup}"/>
-                                <Button Content="Удалить" Style="{StaticResource DangerBtn}"  Command="{Binding DeleteGroup}" CommandParameter="{Binding SelectedGroup}"/>
+                                <Button Style="{StaticResource PrimatyBtn}" Command="{Binding CreateNewGroup}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <fa:FontAwesome Icon="Solid_Plus" Margin="0 0 5 0" VerticalAlignment="Center" Foreground="LightGreen">
+                                            <fa:FontAwesome.Effect>
+                                                <DropShadowEffect ShadowDepth="2"/>
+                                            </fa:FontAwesome.Effect>
+                                        </fa:FontAwesome>
+                                        <TextBlock Text="Добавить" FontSize="13"/>
+                                    </StackPanel>
+                                </Button>
+                                <Button Style="{StaticResource DangerBtn}"  Command="{Binding DeleteGroup}" CommandParameter="{Binding SelectedGroup}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <fa:FontAwesome Icon="Solid_SkullCrossbones" Margin="0 0 5 0" VerticalAlignment="Center">
+                                            <fa:FontAwesome.Effect>
+                                                <DropShadowEffect ShadowDepth="2"/>
+                                            </fa:FontAwesome.Effect>
+                                        </fa:FontAwesome>
+                                        <TextBlock Text="Удалить" FontSize="13"/>
+                                    </StackPanel>
+                                </Button>
                             </UniformGrid>
                             <ListBox ItemsSource="{Binding Groups}" SelectedItem="{Binding SelectedGroup}" SelectedIndex="0">
                                 <ListBox.ItemTemplate>
@@ -156,7 +177,8 @@
             
 
             <TabItem Header="Вкладка 5">
-                
+                <Button Content="sas sas sas" Margin="50" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left"
+                        Style="{StaticResource checkButtonStyle}"/>
             </TabItem>
             
         </TabControl>
