@@ -57,11 +57,11 @@
                     <GroupBox Header="Группы" Grid.Column="0">
                         <DockPanel>
                             <DockPanel.Resources>
-                                <CollectionViewSource x:Key="GroupsCollection" Source="{Binding Groups}"/>
+                                <CollectionViewSource x:Key="GroupsCollection" x:Name="GroupsCollection" Source="{Binding Groups}" Filter="GroupsCollectionFilter"/>
                             </DockPanel.Resources>
                             <DockPanel DockPanel.Dock="Top" Margin="0 0 0 3">
                                 <fa:FontAwesome Height="12" Icon="Solid_Search" Foreground="Gray" Margin="3 0"/>
-                                <TextBox />
+                                <TextBox x:Name="GroupNameFilterText" TextChanged="OnGroupFilterChanged"/>
                             </DockPanel>
                             <UniformGrid DockPanel.Dock="Bottom" Rows="1" Margin="0,3">
                                 <Button Content="Добавить" Style="{StaticResource CheckButtonStyle}" Command="{Binding CreateNewGroup}"/>
