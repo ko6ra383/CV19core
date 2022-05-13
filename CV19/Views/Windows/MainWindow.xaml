@@ -54,7 +54,7 @@
                         <ColumnDefinition Width="250"/>
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <GroupBox Header="Группы" Grid.Column="0">
+                    <GroupBox Headeруппы" Grid.Column="0">
                         <DockPanel>
                             <UniformGrid DockPanel.Dock="Bottom" Rows="1" Margin="0,3">
                                 <Button Content="Добавить" Style="{StaticResource CheckButtonStyle}" Command="{Binding CreateNewGroup}"/>
