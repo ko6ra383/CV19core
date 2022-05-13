@@ -62,7 +62,7 @@ namespace CV19.ViewsModels
         #endregion
 
         #region Текущая вкладка
-        private int _SelectedTabIndex = 1;
+        private int _SelectedTabIndex = 0;
         public int SelectedTabIndex
         {
             get => _SelectedTabIndex;

@@ -57,34 +57,21 @@
                     <GroupBox Header="Группы" Grid.Column="0">
                         <DockPanel>
                             <UniformGrid DockPanel.Dock="Bottom" Rows="1" Margin="0,3">
-                                <Button Style="{StaticResource PrimatyBtn}" Command="{Binding CreateNewGroup}">
-                                    <StackPanel Orientation="Horizontal">
-                                        <fa:FontAwesome Icon="Solid_Plus" Margin="0 0 5 0" VerticalAlignment="Center" Foreground="LightGreen">
-                                            <fa:FontAwesome.Effect>
-                                                <DropShadowEffect ShadowDepth="2"/>
-                                            </fa:FontAwesome.Effect>
-                                        </fa:FontAwesome>
-                                        <TextBlock Text="Добавить" FontSize="13"/>
-                                    </StackPanel>
-                                </Button>
-                                <Button Style="{StaticResource DangerBtn}"  Command="{Binding DeleteGroup}" CommandParameter="{Binding SelectedGroup}">
-                                    <StackPanel Orientation="Horizontal">
-                                        <fa:FontAwesome Icon="Solid_SkullCrossbones" Margin="0 0 5 0" VerticalAlignment="Center">
-                                            <fa:FontAwesome.Effect>
-                                                <DropShadowEffect ShadowDepth="2"/>
-                                            </fa:FontAwesome.Effect>
-                                        </fa:FontAwesome>
-                                        <TextBlock Text="Удалить" FontSize="13"/>
-                                    </StackPanel>
-                                </Button>
+                                <Button Content="Добавить" Style="{StaticResource CheckButtonStyle}" Command="{Binding CreateNewGroup}"/>
+                                <Button Content="Удалить" Style="{StaticResource DeleteButtonStyle}"  Command="{Binding DeleteGroup}" CommandParameter="{Binding SelectedGroup}"/>
                             </UniformGrid>
                             <ListBox ItemsSource="{Binding Groups}" SelectedItem="{Binding SelectedGroup}" SelectedIndex="0">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate DataType="decanat:Group">
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="{Binding Name}"/>
+                                            <TextBlock Text="{Binding Name}" x:Name="tb1"/>
                                             <TextBlock Text="{Binding Students.Count, StringFormat=' [Студентов: {0}]'}"/>
                                         </StackPanel>
+                                        <DataTemplate.Triggers>
+                                            <DataTrigger Binding="{Binding Students.Count}" Value="0">
+                                                <Setter TargetName="tb1" Property="Foreground" Value="Red" />
+                                            </DataTrigger>
+                                        </DataTemplate.Triggers>
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
@@ -178,7 +165,38 @@
 
             <TabItem Header="Вкладка 5">
                 <Button Content="sas sas sas" Margin="50" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left"
-                        Style="{StaticResource checkButtonStyle}"/>
+                         RenderTransformOrigin="0.5, 0.5" Style="{StaticResource PrimatyBtn}">
+                    <Button.Background>
+                        <SolidColorBrush Color="White" x:Name="brush"/>
+                    </Button.Background>
+                    <Button.RenderTransform>
+                        <RotateTransform Angle="0" x:Name="Rotate"/>
+                    </Button.RenderTransform>
+                    <Button.Triggers>
+                        <EventTrigger RoutedEvent="Button.Click">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="Rotate" Storyboard.TargetProperty="Angle"
+                                                     From="0" To="360" Duration="0:0:0.5"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="Button.MouseEnter">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation Storyboard.TargetName="brush" Storyboard.TargetProperty="Color" To="Red" Duration="0:0:0.2"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="Button.MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation Storyboard.TargetName="brush" Storyboard.TargetProperty="Color" To="White" Duration="0:0:2"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Button.Triggers>
+                </Button>
             </TabItem>
             
         </TabControl>
