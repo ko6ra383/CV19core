@@ -48,7 +48,7 @@
             </StatusBarItem>
         </StatusBar>
         <TabControl x:Name="tab" SelectedIndex="{Binding SelectedTabIndex}">
-            <TabItem Header="Студенты">
+            <TabItem Header="Огузки">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="250"/>
