@@ -98,9 +98,9 @@
                         <DockPanel>
                             <DockPanel DockPanel.Dock="Top" Margin="0 0 0 3">
                                 <fa:FontAwesome Height="12" Icon="Solid_Search" Foreground="Gray" Margin="3 0"/>
-                                <TextBox />
+                                <TextBox Text="{Binding StudentFilterText, UpdateSourceTrigger=PropertyChanged}"/>
                             </DockPanel>
-                            <DataGrid ItemsSource="{Binding SelectedGroup.Students}" DisplayMemberPath="Name"
+                            <DataGrid ItemsSource="{Binding SelectedGroupStudents}" DisplayMemberPath="Name"
                                   AutoGenerateColumns="False" CanUserAddRows="False"
                                   HorizontalGridLinesBrush="Transparent"
                                   VerticalGridLinesBrush="DarkGray"
