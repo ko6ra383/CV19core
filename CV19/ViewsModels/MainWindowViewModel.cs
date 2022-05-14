@@ -81,6 +81,12 @@ namespace CV19.ViewsModels
             set => Set(ref _TestDataPoints, value);
         }
         #endregion
+
+        public IEnumerable<Student> TestStudents => Enumerable.Range(1, App.IsDesingnMode ? 10 : 100_000).Select(i => new Student
+        {
+            Name = $"Имя {i}",
+            Surname = $"Фамилия {i}"
+        });
         #endregion
 
         /* ------------------------------------------------------------------------------------------------------------------- */

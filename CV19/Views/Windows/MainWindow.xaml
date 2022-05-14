@@ -111,12 +111,12 @@
                                     <!--<DataGridTextColumn Header="Дата рождения" Binding="{Binding Birtday, StringFormat=dd.MM.yyyy}"/>-->
                                     <DataGridTemplateColumn>
                                         <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate DataType="decanat:Studet">
+                                            <DataTemplate DataType="decanat:Student">
                                                 <TextBlock Text="{Binding Birtday, StringFormat=dd.MM.yyyy}"/>
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
                                         <DataGridTemplateColumn.CellEditingTemplate>
-                                            <DataTemplate DataType="decanat:Studet">
+                                            <DataTemplate DataType="decanat:Student">
                                                 <DatePicker SelectedDate="{Binding Birtday}"/>
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellEditingTemplate>
@@ -129,6 +129,23 @@
                         </DockPanel>
                     </GroupBox>
                 </Grid>
+            </TabItem>
+            <TabItem Header="Тест виртуализации">
+                <ListBox HorizontalAlignment="Left" Width="200" Margin="30" ItemsSource="{Binding TestStudents}"
+                         VirtualizingPanel.IsVirtualizing="True"
+                         VirtualizingPanel.IsContainerVirtualizable="True"
+                         VirtualizingPanel.VirtualizationMode="Recycling">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel />
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate DataType="decanat:Student">
+                            <TextBlock Text="{Binding Surname}" ToolTip="{Binding Name}"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
             </TabItem>
             <TabItem Header="Разнородные данные">
                 <Grid>
@@ -183,9 +200,7 @@
             <TabItem Header="График">
                 <oxy:PlotView Model="{Binding Graf}"/>
             </TabItem>
-            
-
-            <TabItem Header="Вкладка 5">
+            <TabItem Header="Тест кнопка">
                 <Button Content="sas sas sas" Margin="50" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left"
                          RenderTransformOrigin="0.5, 0.5" Style="{StaticResource PrimatyBtn}">
                     <Button.Background>
