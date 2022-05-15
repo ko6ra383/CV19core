@@ -6,8 +6,10 @@ using OxyPlot.Series;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace CV19.ViewsModels
@@ -35,9 +37,45 @@ namespace CV19.ViewsModels
         public Group SelectedGroup
         {
             get { return _SelectedGroup; }
-            set { Set(ref _SelectedGroup, value); }
+            set { 
+                if(!(Set(ref _SelectedGroup, value))) return;
+                _SelectedGroupStudents.Source = value?.Students;
+                OnPropertyChanged(nameof(SelectedGroupStudents));
+            }
         }
         #endregion
+
+        private readonly CollectionViewSource _SelectedGroupStudents = new CollectionViewSource();
+        public ICollectionView SelectedGroupStudents => _SelectedGroupStudents?.View;
+
+        /// <summary>
+        /// Текст фильтра студентов
+        /// </summary>
+        private string _StudentFilterText;
+
+        public string StudentFilterText
+        {
+            get { return _StudentFilterText; }
+            set {
+                if (!(Set(ref _StudentFilterText, value))) return;
+                _SelectedGroupStudents.View.Refresh(); 
+            }
+        }
+
+        private void OnStudentFiltred(object s, FilterEventArgs e)
+        {
+            if (!(e.Item is Student stud) || string.IsNullOrEmpty(stud.Name) || string.IsNullOrEmpty(stud.Surname))
+            {
+                e.Accepted = false;
+                return;
+            }
+            var filterText = _StudentFilterText;
+            if (string.IsNullOrWhiteSpace(filterText)) return;
+            if (stud.Name.Contains(filterText, StringComparison.OrdinalIgnoreCase)) return;
+            if (stud.Surname.Contains(filterText, StringComparison.OrdinalIgnoreCase)) return;
+            e.Accepted = false;
+        }
+
 
         #region Заголовок окна
         private string _Title = "анализ CV19";
@@ -62,7 +100,8 @@ namespace CV19.ViewsModels
         #endregion
 
         #region Текущая вкладка
-        private int _SelectedTabIndex = 0;
+   
+        private int _SelectedTabIndex = 1;
         public int SelectedTabIndex
         {
             get => _SelectedTabIndex;
@@ -81,6 +120,27 @@ namespace CV19.ViewsModels
             set => Set(ref _TestDataPoints, value);
         }
         #endregion
+
+        
+        public IEnumerable<Student> TestStudents => Enumerable.Range(1, App.IsDesingnMode ? 10 : 100).Select(i => new Student
+        {
+            Name = $"Имя {i}",
+            Surname = $"Фамилия {i}"
+        });
+
+
+        public DirectoryViewModel DiskRootDir { get; } = new DirectoryViewModel("d:\\");
+        private DirectoryViewModel _SelectedDirectory;
+
+        public DirectoryViewModel SelectedDirectory
+        {
+            get { return _SelectedDirectory; }
+            set { 
+                Set(ref _SelectedDirectory, value);
+            }
+        }
+
+
         #endregion
 
         /* ------------------------------------------------------------------------------------------------------------------- */
@@ -123,6 +183,7 @@ namespace CV19.ViewsModels
         #endregion
         #region DeleteGroup
         public ICommand DeleteGroup { get; }
+
         private bool CanDeleteGroupExecute(object p) => p is Group group && Groups.Contains(group);
         private void OnDeleteGroupExecuting(object p)
         {
@@ -163,10 +224,11 @@ namespace CV19.ViewsModels
             Graf.PlotType = PlotType.XY;
             Graf.Series.Add(series);
 
+            int studID = 1;
             var students = Enumerable.Range(1, 10).Select(i => new Student
             {
-                Name = $"Name {i}",
-                Surname = $"Surname {i}",
+                Name = $"Name {studID}",
+                Surname = $"Surname {studID++}",
                 Birtday = DateTime.Now,
                 Rating = 0
             });
@@ -184,6 +246,10 @@ namespace CV19.ViewsModels
             dataList.Add(group);
             dataList.Add(group.Students[1]);
             CompositeCollection = dataList.ToArray();
+
+            _SelectedGroupStudents.Filter += OnStudentFiltred;
+            //сортировка в обратном порядке по имени
+            //_SelectedGroupStudents.SortDescriptions.Add(new SortDescription("Name",ListSortDirection.Descending));
         }
 
         /* ------------------------------------------------------------------------------------------------------------------- */
