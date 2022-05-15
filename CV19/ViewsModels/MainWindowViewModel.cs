@@ -127,6 +127,10 @@ namespace CV19.ViewsModels
             Name = $"Имя {i}",
             Surname = $"Фамилия {i}"
         });
+
+
+        public DirectoryViewModel DiskRootDir { get; } = new DirectoryViewModel("c:\\");
+
         #endregion
 
         /* ------------------------------------------------------------------------------------------------------------------- */
