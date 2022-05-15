@@ -130,6 +130,40 @@
                     </GroupBox>
                 </Grid>
             </TabItem>
+            <TabItem Header="Файловая система">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="250"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <GroupBox Header="Директории" Grid.Column="0">
+                        <!--<ListBox ItemsSource="{Binding DiskRootDir.DirectoryItems}"
+                                 SelectedItem="{Binding SelectedDirectory}"
+                                 SelectedIndex="1">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate DataType="vm:DirectoryViewModel">
+                                    <TextBlock Text="{Binding Name}" ToolTip="{Binding CreationTime}"/>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>-->
+                        <TreeView ItemsSource="{Binding DiskRootDir.DirectoryItems}">
+                            <TreeView.ItemTemplate>
+                                <HierarchicalDataTemplate DataType="vm:DirectoryViewModel" ItemsSource="{Binding DirectoryItems}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <fa:FontAwesome Icon="Regular_Folder" Height="15" FontSize="15" Margin="0 0 5 0"/>
+                                        <TextBlock Text="{Binding Name}" ToolTip="{Binding CreationTime}" FontSize="13"/>
+                                    </StackPanel>
+                                </HierarchicalDataTemplate>
+                            </TreeView.ItemTemplate>
+                        </TreeView>
+                    </GroupBox>
+                    <GroupBox Header="Файлы" Grid.Column="1">
+                        <ListBox ItemsSource="{Binding SelectedDirectory.Files}" DisplayMemberPath="Name">
+
+                        </ListBox>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
             <TabItem Header="Тест виртуализации">
                 <ListBox HorizontalAlignment="Left" Width="200" Margin="30" ItemsSource="{Binding TestStudents}"
                          VirtualizingPanel.IsVirtualizing="True"

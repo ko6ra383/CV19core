@@ -129,7 +129,17 @@ namespace CV19.ViewsModels
         });
 
 
-        public DirectoryViewModel DiskRootDir { get; } = new DirectoryViewModel("c:\\");
+        public DirectoryViewModel DiskRootDir { get; } = new DirectoryViewModel("d:\\");
+        private DirectoryViewModel _SelectedDirectory;
+
+        public DirectoryViewModel SelectedDirectory
+        {
+            get { return _SelectedDirectory; }
+            set { 
+                Set(ref _SelectedDirectory, value);
+            }
+        }
+
 
         #endregion
 
