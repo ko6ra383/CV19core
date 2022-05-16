@@ -4,7 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CV19.Views" xmlns:fa="http://schemas.fontawesome.com/icons/"
-             xmlns:vm ="clr-namespace:CV19.ViewsModels"
+             xmlns:vm ="clr-namespace:CV19.ViewsModels" 
+             xmlns:models="clr-namespace:CV19.Models"
              d:DataContext="{d:DesignInstance vm:CountriesStatisticViewModel}"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -21,8 +22,12 @@
                         <TextBlock Text="Загрузить данные" FontSize="14"/>
                     </StackPanel>
                 </Button>
-                <ListBox ItemsSource="{Binding Countries}">
-
+                <ListBox ItemsSource="{Binding Countries}" SelectedItem="{Binding SelectedCounty}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate DataType="models:CountryInfo">
+                            <TextBlock Text="{Binding Name}"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
                 </ListBox>
             </DockPanel>
         </GroupBox>
