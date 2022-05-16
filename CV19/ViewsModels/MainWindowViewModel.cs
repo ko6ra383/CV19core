@@ -17,7 +17,7 @@ namespace CV19.ViewsModels
     public class MainWindowViewModel:BaseViewModel
     {
         /* ------------------------------------------------------------------------------------------------------------------- */
-        private readonly CountriesStatisticViewModel _CountriesStatistic;
+        public CountriesStatisticViewModel CountriesStatistic { get; }
         /* ------------------------------------------------------------------------------------------------------------------- */
         #region Свойства
         #region Непонятный элемент
@@ -214,7 +214,7 @@ namespace CV19.ViewsModels
             DeleteGroup = new LambdaCommand(OnDeleteGroupExecuting, CanDeleteGroupExecute);
             #endregion
 
-            _CountriesStatistic = new CountriesStatisticViewModel(this);
+            CountriesStatistic = new CountriesStatisticViewModel(this);
 
             var data_points = new List<OxyPlot.DataPoint>((int)(360 / 0.1));
             for (var x = 0d; x <= 360; x += 0.1)
