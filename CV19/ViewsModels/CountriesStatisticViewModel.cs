@@ -30,6 +30,17 @@ namespace CV19.ViewsModels
 
         #endregion
 
+        #region SelectedCounty
+        private CountryInfo _SelectedCounty;
+
+        public CountryInfo SelectedCounty
+        {
+            get => _SelectedCounty;
+            set => Set(ref _SelectedCounty, value);
+        }
+
+        #endregion
+
         #region Команды
         public ICommand RefreshDataCommand { get; }
         private void OnRefreshDataCommandExecuted(object p)
