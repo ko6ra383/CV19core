@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CV19.Services;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -18,6 +19,10 @@ namespace CV19
         {
             IsDesingnMode = false;
             base.OnStartup(e);
+
+            var serviseTest = new DataServices();
+            var countries = serviseTest.GetData().ToArray();
+
         }
     }
 }
