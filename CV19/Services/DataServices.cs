@@ -22,13 +22,13 @@ namespace CV19.Services
         }
         private static IEnumerable<string> GetDataLines()
         {
-            var data_stream = GetDataStream().Result;
+            var data_stream = Task.Run(GetDataStream).Result;
             var data_reader = new StreamReader(data_stream);
             while (!data_reader.EndOfStream)
             {
                 var line = data_reader.ReadLine();
                 if (string.IsNullOrEmpty(line)) continue;
-                yield return line.Replace("Korea, ", "Korea -");
+                yield return line.Replace("Korea, ", "Korea -").Replace("Helena,", "Helena -").Replace("Bonaire,", "Bonaire -");
             }
         }
         private static DateTime[] GetDates() => GetDataLines()
@@ -47,9 +47,9 @@ namespace CV19.Services
             {
                 var province = row[0].Trim();
                 var countryName = row[1].Trim(' ', '"');
-                var latitude = double.Parse(row[2]);
-                var longitude = double.Parse(row[3]);
-                var counts = row.Skip(5)
+                var latitude = row[2] == "" ? 0 : double.Parse(row[2], CultureInfo.InvariantCulture);
+                var longitude = row[3] == "" ? 0 : double.Parse(row[3], CultureInfo.InvariantCulture);
+                var counts = row.Skip(4)
                     .Select(int.Parse)
                     .ToArray();
                 yield return (countryName, province,(latitude, longitude), counts);
