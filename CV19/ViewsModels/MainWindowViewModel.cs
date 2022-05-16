@@ -44,7 +44,7 @@ namespace CV19.ViewsModels
             }
         }
         #endregion
-
+        #region SelectedGroupStudents + Filter
         private readonly CollectionViewSource _SelectedGroupStudents = new CollectionViewSource();
         public ICollectionView SelectedGroupStudents => _SelectedGroupStudents?.View;
 
@@ -56,9 +56,10 @@ namespace CV19.ViewsModels
         public string StudentFilterText
         {
             get { return _StudentFilterText; }
-            set {
+            set
+            {
                 if (!(Set(ref _StudentFilterText, value))) return;
-                _SelectedGroupStudents.View.Refresh(); 
+                _SelectedGroupStudents.View.Refresh();
             }
         }
 
@@ -75,6 +76,8 @@ namespace CV19.ViewsModels
             if (stud.Surname.Contains(filterText, StringComparison.OrdinalIgnoreCase)) return;
             e.Accepted = false;
         }
+        #endregion
+
 
 
         #region Заголовок окна
@@ -128,17 +131,20 @@ namespace CV19.ViewsModels
             Surname = $"Фамилия {i}"
         });
 
-
+        #region DiskData for TreeView
         public DirectoryViewModel DiskRootDir { get; } = new DirectoryViewModel("d:\\");
         private DirectoryViewModel _SelectedDirectory;
 
         public DirectoryViewModel SelectedDirectory
         {
             get { return _SelectedDirectory; }
-            set { 
+            set
+            {
                 Set(ref _SelectedDirectory, value);
             }
         }
+        #endregion
+
 
 
         #endregion
