@@ -23,5 +23,10 @@ namespace CV19.Models
             set => _Location = value;
         }
         public IEnumerable<PlaseInfo> ProvinceCounts { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Name} ({Location})";
+        }
     }
 }

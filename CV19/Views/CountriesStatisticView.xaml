@@ -3,7 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" mc:Ignorable="d" 
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:CV19.Views"
+             xmlns:local="clr-namespace:CV19.Views" xmlns:fa="http://schemas.fontawesome.com/icons/"
+             xmlns:vm ="clr-namespace:CV19.ViewsModels"
+             d:DataContext="{d:DesignInstance vm:CountriesStatisticViewModel}"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -12,9 +14,17 @@
         </Grid.ColumnDefinitions>
         <GridSplitter />
         <GroupBox Header="Список стран">
-            <ListBox>
-                
-            </ListBox>
+            <DockPanel>
+                <Button DockPanel.Dock="top" Command="{Binding RefreshDataCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <fa:ImageAwesome Height="12" Icon="Solid_ArrowDown" Margin="0 0 5 0"/>
+                        <TextBlock Text="Загрузить данные" FontSize="14"/>
+                    </StackPanel>
+                </Button>
+                <ListBox ItemsSource="{Binding Countries}">
+
+                </ListBox>
+            </DockPanel>
         </GroupBox>
         <GroupBox Header="Информация" Grid.Column="1">
             <Grid>
