@@ -6,7 +6,8 @@
              xmlns:local="clr-namespace:CV19.Views" xmlns:fa="http://schemas.fontawesome.com/icons/"
              xmlns:vm ="clr-namespace:CV19.ViewsModels" 
              xmlns:c ="clr-namespace:CV19.Infrastructure.Converters" 
-             xmlns:models="clr-namespace:CV19.Models"
+             xmlns:models="clr-namespace:CV19.Models" 
+             xmlns:common="clr-namespace:CV19.Infrastructure.Common"
              d:DataContext="{d:DesignInstance vm:CountriesStatisticViewModel}"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -47,6 +48,9 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <GridSplitter VerticalAlignment="Bottom" HorizontalAlignment="Stretch" />
+                <ListBox Grid.Row="1" ItemsSource="{common:StringToIntArray Str='2131;1232;3123;4;'}">
+                    
+                </ListBox>
             </Grid>
         </GroupBox>
         
