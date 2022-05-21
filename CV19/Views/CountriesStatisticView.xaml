@@ -8,6 +8,7 @@
              xmlns:c ="clr-namespace:CV19.Infrastructure.Converters" 
              xmlns:models="clr-namespace:CV19.Models" 
              xmlns:oxy="http://oxyplot.org/wpf"
+             xmlns:map="clr-namespace:MapControl;assembly=MapControl.WPF"
              xmlns:common="clr-namespace:CV19.Infrastructure.Common"
              d:DataContext="{d:DesignInstance vm:CountriesStatisticViewModel}"
              d:DesignHeight="450" d:DesignWidth="800">
@@ -29,7 +30,7 @@
                     <ListBox.ItemTemplate>
                         <DataTemplate DataType="models:CountryInfo">
                             <DataTemplate.Resources>
-                                <c:LacationPointToStr x:Key="LocationConverter"/>
+                                <c:LocationPointToStr x:Key="LocationConverter"/>
                             </DataTemplate.Resources>
                             <TextBlock>
                                 <TextBlock Text="{Binding Name}"/>
@@ -44,13 +45,25 @@
         </GroupBox>
         <GroupBox Header="Информация" Grid.Column="1">
             <Grid>
+                <Grid.Resources>
+                    <c:PointToMapLocation x:Key="PointToMapLocation"/>
+                </Grid.Resources>
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <GridSplitter VerticalAlignment="Bottom" HorizontalAlignment="Stretch" />
                 <oxy:PlotView Model="{Binding Graf}"/>
+                <map:Map Grid.Row="1" ZoomLevel="5" MaxZoomLevel="21"
+                         Center="{Binding SelectedCounty.Location, Converter={StaticResource PointToMapLocation}}">
+                    <map:MapScale Opacity="1" VerticalAlignment="Bottom" Margin="5"/>
+                    <map:MapGraticule Opacity="0.3" Background="Transparent"/>
+                    <map:Map.MapLayer>
+                        <map:MapTileLayer TileSource="http://tile.stamen.com/toner-lite/{z}/{x}/{y}.png"/>
+                    </map:Map.MapLayer>
+                </map:Map>
             </Grid>
+
         </GroupBox>
         
     </Grid>
