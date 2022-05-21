@@ -2,6 +2,9 @@
 using CV19.Models;
 using CV19.Services;
 using CV19.ViewsModels.Base;
+using OxyPlot;
+using OxyPlot.Axes;
+using OxyPlot.Series;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,8 +39,26 @@ namespace CV19.ViewsModels
         public CountryInfo SelectedCounty
         {
             get => _SelectedCounty;
-            set => Set(ref _SelectedCounty, value);
+            set
+            {
+                Set(ref _SelectedCounty, value);
+                //Graf.Series.Clear();
+                var graf = new PlotModel();
+                graf.PlotType = PlotType.XY;
+                graf.Axes.Add(new DateTimeAxis() { Title = "День", Position = AxisPosition.Bottom });
+                graf.Axes.Add(new LinearAxis() { Title = "Количество", Position = AxisPosition.Left });
+                var areaSeries = new LineSeries();
+                areaSeries.ItemsSource = SelectedCounty.Counts; 
+                areaSeries.StrokeThickness = 2;
+                areaSeries.Color = OxyColor.FromRgb(200,30,30);
+                areaSeries.DataFieldX = "Date";
+                areaSeries.DataFieldY = "Count";
+                graf.Series.Add(areaSeries);
+                Graf = graf;
+                OnPropertyChanged("Graf");
+            }
         }
+        public PlotModel Graf { get; set; }
 
         #endregion
 
@@ -47,7 +68,7 @@ namespace CV19.ViewsModels
         {
             Countries = _DataService.GetData();
         }
-        
+
         #endregion
 
         public CountriesStatisticViewModel(MainWindowViewModel MainModel)
@@ -58,6 +79,12 @@ namespace CV19.ViewsModels
             #region Команды
             RefreshDataCommand = new LambdaCommand(OnRefreshDataCommandExecuted);
             #endregion
+
+            Graf = new PlotModel();
+            Graf.PlotType = PlotType.XY;
+            Graf.Axes.Add(new DateTimeAxis() { Title = "День", Position = AxisPosition.Bottom });
+            Graf.Axes.Add(new LinearAxis() { Title = "Количество", Position = AxisPosition.Left });
+            
         }
 
     }

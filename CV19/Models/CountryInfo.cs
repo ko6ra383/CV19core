@@ -28,5 +28,30 @@ namespace CV19.Models
         {
             return $"{Name} ({Location})";
         }
+        private IEnumerable<ConfirmedCount> _Counts;
+        public override IEnumerable<ConfirmedCount> Counts {
+            get
+            {
+                if (_Counts != null) return _Counts;
+                var points_counts = ProvinceCounts.FirstOrDefault()?.Counts?.Count() ?? 0;
+                if (points_counts == 0) return Enumerable.Empty<ConfirmedCount>();
+
+                var province_points = ProvinceCounts.Select(p => p.Counts.ToArray()).ToArray();
+
+                var points = new ConfirmedCount[points_counts];
+                foreach(var province in province_points)
+                {
+                    for (int i = 0; i < points_counts; i++)
+                    {
+                        if (points[i].Date == default)
+                            points[i] = province[i];
+                        else
+                            points[i].Count = province[i].Count;
+                    }
+                }
+                return _Counts = points;
+            }
+            set => _Counts = value;
+        }
     }
 }
