@@ -9,7 +9,7 @@ using System.Windows.Data;
 
 namespace CV19.Infrastructure.Converters
 {
-    public class LacationPointToStr : IValueConverter
+    public class LocationPointToStr : IValueConverter
     {
         public object Convert(object value, Type t, object p, CultureInfo c)
         {
