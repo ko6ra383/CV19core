@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:oxy="http://oxyplot.org/wpf"
         xmlns:vm="clr-namespace:CV19.ViewsModels"
+        xmlns:view="clr-namespace:CV19.Views"
         xmlns:decanat="clr-namespace:CV19.Models.Decanat"
         xmlns:sys="clr-namespace:System;assembly=System.Runtime"
         xmlns:fa="http://schemas.fontawesome.com/icons/"
@@ -45,7 +46,7 @@
             </StatusBarItem>
             <StatusBarItem>
                 <TextBlock Text="{Binding SelectedTabIndex}" Margin="10 0 0 0" FontSize="14"/>
-            </StatusBarItem>
+            </StatusBarItem>    
         </StatusBar>
         <TabControl x:Name="tab" SelectedIndex="{Binding SelectedTabIndex}">
             <TabItem Header="Студенты">
@@ -91,7 +92,7 @@
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
-                            
+
                         </DockPanel>
                     </GroupBox>
                     <GroupBox Header="Выбранный элемент" Grid.Column="1">
@@ -129,6 +130,9 @@
                         </DockPanel>
                     </GroupBox>
                 </Grid>
+            </TabItem>
+            <TabItem Header="Статистика">
+                <view:CountriesStatisticView DataContext="{Binding CountriesStatistic}"/>
             </TabItem>
             <TabItem Header="Файловая система">
                 <Grid>

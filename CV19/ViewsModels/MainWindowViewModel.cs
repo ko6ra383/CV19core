@@ -17,6 +17,8 @@ namespace CV19.ViewsModels
     public class MainWindowViewModel:BaseViewModel
     {
         /* ------------------------------------------------------------------------------------------------------------------- */
+        public CountriesStatisticViewModel CountriesStatistic { get; }
+        /* ------------------------------------------------------------------------------------------------------------------- */
         #region Свойства
         #region Непонятный элемент
         public object[] CompositeCollection { get; }
@@ -44,7 +46,7 @@ namespace CV19.ViewsModels
             }
         }
         #endregion
-
+        #region SelectedGroupStudents + Filter
         private readonly CollectionViewSource _SelectedGroupStudents = new CollectionViewSource();
         public ICollectionView SelectedGroupStudents => _SelectedGroupStudents?.View;
 
@@ -56,9 +58,10 @@ namespace CV19.ViewsModels
         public string StudentFilterText
         {
             get { return _StudentFilterText; }
-            set {
+            set
+            {
                 if (!(Set(ref _StudentFilterText, value))) return;
-                _SelectedGroupStudents.View.Refresh(); 
+                _SelectedGroupStudents.View.Refresh();
             }
         }
 
@@ -75,6 +78,8 @@ namespace CV19.ViewsModels
             if (stud.Surname.Contains(filterText, StringComparison.OrdinalIgnoreCase)) return;
             e.Accepted = false;
         }
+        #endregion
+
 
 
         #region Заголовок окна
@@ -128,17 +133,20 @@ namespace CV19.ViewsModels
             Surname = $"Фамилия {i}"
         });
 
-
+        #region DiskData for TreeView
         public DirectoryViewModel DiskRootDir { get; } = new DirectoryViewModel("d:\\");
         private DirectoryViewModel _SelectedDirectory;
 
         public DirectoryViewModel SelectedDirectory
         {
             get { return _SelectedDirectory; }
-            set { 
+            set
+            {
                 Set(ref _SelectedDirectory, value);
             }
         }
+        #endregion
+
 
 
         #endregion
@@ -205,6 +213,8 @@ namespace CV19.ViewsModels
             CreateNewGroup = new LambdaCommand(OnCreateNewGroupExecuting, CanChangePageCommandExecute);
             DeleteGroup = new LambdaCommand(OnDeleteGroupExecuting, CanDeleteGroupExecute);
             #endregion
+
+            CountriesStatistic = new CountriesStatisticViewModel(this);
 
             var data_points = new List<OxyPlot.DataPoint>((int)(360 / 0.1));
             for (var x = 0d; x <= 360; x += 0.1)
