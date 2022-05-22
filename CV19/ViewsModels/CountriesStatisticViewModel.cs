@@ -17,7 +17,7 @@ namespace CV19.ViewsModels
     public class CountriesStatisticViewModel : BaseViewModel
     {
         private DataServices _DataService;
-        public MainWindowViewModel MainModel { get; }
+        public MainWindowViewModel MainModel { get; set; }
 
         #region Countries
         /// <summary>
@@ -71,10 +71,9 @@ namespace CV19.ViewsModels
 
         #endregion
 
-        public CountriesStatisticViewModel(MainWindowViewModel MainModel)
+        public CountriesStatisticViewModel(DataServices dataServices)
         {
-            this.MainModel = MainModel;
-            _DataService = new DataServices();
+            _DataService = dataServices;
 
             #region Команды
             RefreshDataCommand = new LambdaCommand(OnRefreshDataCommandExecuted);
