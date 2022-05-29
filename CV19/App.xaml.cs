@@ -11,12 +11,10 @@ using System.Windows;
 using CV19.ViewsModels;
 using System.Runtime.CompilerServices;
 using System.IO;
+using CV19.Services.Interfaces;
 
 namespace CV19
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
     public partial class App : Application
     {
         public static bool IsDesingnMode { get; private set; } = true;
@@ -47,7 +45,7 @@ namespace CV19
 
         public static void ConfigureServices(HostBuilderContext host, IServiceCollection services)
         {
-            services.AddSingleton<DataServices>();
+            services.AddSingleton<IDataService,DataServices>();
             services.AddSingleton<MainWindowViewModel>();
             services.AddSingleton<CountriesStatisticViewModel>();
         }

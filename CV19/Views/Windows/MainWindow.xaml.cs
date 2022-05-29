@@ -8,10 +8,8 @@ namespace CV19
 {
     public partial class MainWindow : Window
     {
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
+        public MainWindow() => InitializeComponent();
+        
 
         private void GroupsCollectionFilter(object sender, FilterEventArgs e)
         {

@@ -8,10 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using CV19.Models;
+using CV19.Services.Interfaces;
 
 namespace CV19.Services
 {
-    public class DataServices
+    public class DataServices : IDataService
     {
         private const string data_url = @"https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv";
         private static async Task<Stream> GetDataStream()
