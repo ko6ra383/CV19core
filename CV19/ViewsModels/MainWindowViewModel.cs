@@ -1,6 +1,7 @@
 ﻿using CV19.Infrastructure.Commands;
 using CV19.Models.Decanat;
 using CV19.ViewsModels.Base;
+using Microsoft.Extensions.DependencyInjection;
 using OxyPlot;
 using OxyPlot.Series;
 using System;
@@ -205,7 +206,7 @@ namespace CV19.ViewsModels
         #endregion
 
         /* ------------------------------------------------------------------------------------------------------------------- */
-        public MainWindowViewModel()
+        public MainWindowViewModel(CountriesStatisticViewModel Statistic)
         {
             #region Команды
             CloseApplicationCommand = new LambdaCommand(OnCloseApplicationCommandExecuting, CanCloseApplicationCommandExecute);
@@ -214,7 +215,8 @@ namespace CV19.ViewsModels
             DeleteGroup = new LambdaCommand(OnDeleteGroupExecuting, CanDeleteGroupExecute);
             #endregion
 
-            CountriesStatistic = new CountriesStatisticViewModel(this);
+            CountriesStatistic = Statistic;
+            Statistic.MainModel = this;
 
             var data_points = new List<OxyPlot.DataPoint>((int)(360 / 0.1));
             for (var x = 0d; x <= 360; x += 0.1)
