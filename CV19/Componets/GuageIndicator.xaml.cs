@@ -1,26 +1,47 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace CV19.Componets
 {
-    /// <summary>
-    /// Логика взаимодействия для GuageIndicator.xaml
-    /// </summary>
-    public partial class GuageIndicator : UserControl
+    public partial class GaugeIndicator
     {
-        public GuageIndicator()
+        #region ValueProperty
+        public static readonly DependencyProperty ValueProperty =
+            DependencyProperty.Register(
+                nameof(Value),
+                typeof(double),
+                typeof(GaugeIndicator),
+                new PropertyMetadata(default(double), OnValuePropertyChanged, OnCourceValue),
+                OnValidateValue);
+
+        private static bool OnValidateValue(object value)
+        {
+            //проверка валидации - вернет false привязки не будет
+            return true;
+        }
+
+        private static object OnCourceValue(DependencyObject d, object baseValue)
+        {
+            //корректирует значение
+            var val = (double)baseValue;
+            return Math.Max(-100, Math.Min(100, val));
+        }
+
+        private static void OnValuePropertyChanged(DependencyObject D, DependencyPropertyChangedEventArgs E)
+        {
+            //если свойство изменилось
+            //var gauge = (GaugeIndicator)D;
+            //gauge.ArrowRotator.Angle = (double)E.NewValue;
+        }
+        public double Value
+        {
+            get => (double)GetValue(ValueProperty);
+            set => SetValue(ValueProperty, value);
+        } 
+        #endregion
+
+        public GaugeIndicator()
         {
             InitializeComponent();
         }
