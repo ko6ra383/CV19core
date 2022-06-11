@@ -9,7 +9,9 @@
         xmlns:decanat="clr-namespace:CV19.Models.Decanat"
         xmlns:sys="clr-namespace:System;assembly=System.Runtime"
         xmlns:fa="http://schemas.fontawesome.com/icons/"
-        xmlns:local="clr-namespace:CV19" xmlns:componets="clr-namespace:CV19.Componets"
+        xmlns:con="clr-namespace:CV19.Infrastructure.Converters"
+        xmlns:local="clr-namespace:CV19" 
+        xmlns:componets="clr-namespace:CV19.Componets"
         mc:Ignorable="d"
         DataContext="{Binding MainWindowModel, Source={StaticResource Locator}}"
         Title="{Binding Title}" Height="450" Width="800">
@@ -227,8 +229,18 @@
             </TabItem>
             <TabItem Header="Тест данные">
                 <Grid>
-                    <componets:GaugeIndicator VerticalAlignment="Top" Width="200" Height="200" Value="{Binding Angle}"/>
-                    <Slider VerticalAlignment="Top" Minimum="-50" Maximum="100" HorizontalContentAlignment="Stretch" Value="{Binding Angle}"/>
+                    <Grid.Resources>
+                        <con:ParametricMultiplyValueConverter x:Key="Mult" Value="{Binding Coef}"/>
+                    </Grid.Resources>
+                    <Slider VerticalAlignment="Top" Minimum="-50" Maximum="100"
+                            HorizontalContentAlignment="Stretch" Value="{Binding Angle}" ToolTip="{Binding Angle}"/>
+                    <Slider VerticalAlignment="Top" Minimum="-10" Maximum="10" SmallChange="0.1" Margin="0 40 0 20"
+                            HorizontalContentAlignment="Stretch" Value="{Binding Coef}" ToolTip="{Binding Coef}"/>
+                    <componets:GaugeIndicator VerticalAlignment="Top" Width="200" Height="200" Margin="50">
+                        <componets:GaugeIndicator.Value>
+                            <Binding Path="Angle" Converter="{StaticResource Mult}"/>
+                        </componets:GaugeIndicator.Value>
+                    </componets:GaugeIndicator>
                 </Grid>
             </TabItem>
             <TabItem Header="График">
