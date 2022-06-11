@@ -127,7 +127,24 @@ namespace CV19.ViewsModels
         }
         #endregion
 
-        
+        #region GuageAngleRotator
+        private double _Angle = 60;
+        public double Angle
+        {
+            get { return _Angle; }
+            set { Set(ref _Angle, value); }
+        }
+
+        #endregion
+        #region Coef
+        private double _Coef = 1;
+        public double Coef
+        {
+            get { return _Coef; }
+            set { Set(ref _Coef, value); }
+        }
+
+        #endregion
         public IEnumerable<Student> TestStudents => Enumerable.Range(1, App.IsDesingnMode ? 10 : 100).Select(i => new Student
         {
             Name = $"Имя {i}",
