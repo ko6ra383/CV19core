@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
@@ -236,6 +237,10 @@ namespace CV19.ViewsModels
         public ICommand StartProcessCommand { get; }
         private bool CanStartProcessCommandExecute(object p) => true;
         private void OnStartProcessCommandExecute(object p)
+        {
+            new Thread(ComputeValue).Start();
+        }
+        private void ComputeValue()
         {
             DataValue = asyncData.GetResult(DateTime.Now);
         }

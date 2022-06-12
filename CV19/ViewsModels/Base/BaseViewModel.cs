@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.ComponentModel;
-using System.Threading.Tasks;
+using System.Windows.Threading;
+using System.Threading;
 using System.Runtime.CompilerServices;
 
 namespace CV19.ViewsModels.Base
@@ -13,7 +14,19 @@ namespace CV19.ViewsModels.Base
 
         protected virtual void OnPropertyChanged([CallerMemberName] string PropertyName = null)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(PropertyName));
+            //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(PropertyName));
+            var handlers = PropertyChanged;
+            if (handlers is null) return;
+
+            var invokationList = handlers.GetInvocationList();
+            var arg = new PropertyChangedEventArgs(PropertyName);
+            foreach(var action in invokationList)
+            {
+                if (action.Target is DispatcherObject disp_obj)
+                    disp_obj.Dispatcher.Invoke(action, this, arg);
+                else
+                    action.DynamicInvoke(this, arg);
+            }
         }
 
         protected virtual bool Set<T>(ref T field, T value, [CallerMemberName] string PropertyName = null)
