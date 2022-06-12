@@ -281,7 +281,20 @@
                     </Button.Triggers>
                 </Button>
             </TabItem>
-            
+            <TabItem Header="Отладка">
+                <DockPanel>
+                    <DockPanel DockPanel.Dock="Top" >
+                        <UniformGrid DockPanel.Dock="Left" HorizontalAlignment="Left" Rows="1" Margin="5 5 5 0">
+                            <Button Margin="5" Padding="20 5" Command="{Binding StartProcessCommand}">Запуск</Button>
+                            <Button Margin="5" Padding="20 5" Command="{Binding StopProcessCommand}">Остановка</Button>
+                        </UniformGrid>
+                        <ProgressBar DockPanel.Dock="Top" Height="20" Margin="10"/>
+                    </DockPanel>
+                    <Grid>
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"  Text="{Binding DataValue}" FontSize="30"/>
+                    </Grid>
+                </DockPanel>
+            </TabItem>
         </TabControl>
     </DockPanel>
 </Window>

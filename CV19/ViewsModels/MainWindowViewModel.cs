@@ -168,7 +168,15 @@ namespace CV19.ViewsModels
         }
         #endregion
 
+        #region DataValue
+        private string _DataValue;
+        public string DataValue
+        {
+            get { return _DataValue; }
+            private set { Set(ref _DataValue, value); }
+        }
 
+        #endregion
 
         #endregion
 
@@ -223,6 +231,23 @@ namespace CV19.ViewsModels
                 SelectedGroup = Groups[id];
         }
         #endregion
+
+        #region StartProcessCommand
+        public ICommand StartProcessCommand { get; }
+        private bool CanStartProcessCommandExecute(object p) => true;
+        private void OnStartProcessCommandExecute(object p)
+        {
+            DataValue = asyncData.GetResult(DateTime.Now);
+        }
+        #endregion
+        #region StopProcessCommand
+        public ICommand StopProcessCommand { get; }
+        private bool CanStopProcessCommandExecute(object p) => true;
+        private void OnStopProcessCommandExecute(object p)
+        {
+
+        }
+        #endregion
         #endregion
 
         /* ------------------------------------------------------------------------------------------------------------------- */
@@ -233,6 +258,8 @@ namespace CV19.ViewsModels
             ChangePageCommand = new LambdaCommand(OnChangePageCommandExecuting, CanChangePageCommandExecute);
             CreateNewGroup = new LambdaCommand(OnCreateNewGroupExecuting, CanChangePageCommandExecute);
             DeleteGroup = new LambdaCommand(OnDeleteGroupExecuting, CanDeleteGroupExecute);
+            StartProcessCommand = new LambdaCommand(OnStartProcessCommandExecute, CanStartProcessCommandExecute);
+            StopProcessCommand = new LambdaCommand(OnStopProcessCommandExecute, CanStopProcessCommandExecute);
             #endregion
 
             CountriesStatistic = Statistic;
