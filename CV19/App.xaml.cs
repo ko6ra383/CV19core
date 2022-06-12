@@ -43,12 +43,11 @@ namespace CV19
             _Host = null;
         }
 
-        public static void ConfigureServices(HostBuilderContext host, IServiceCollection services)
-        {
-            services.AddSingleton<IDataService,DataServices>();
-            services.AddSingleton<MainWindowViewModel>();
-            services.AddSingleton<CountriesStatisticViewModel>();
-        }
+        public static void ConfigureServices(HostBuilderContext host, IServiceCollection services) =>
+            services
+                .RegisterServices()
+                .RegisterViewModels();
+
 
         public static string CurrentDirectory =>
             IsDesingnMode ? Path.GetDirectoryName(GetSourceCodePath()) : Environment.CurrentDirectory;

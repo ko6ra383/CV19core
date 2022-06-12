@@ -1,5 +1,6 @@
 ﻿using CV19.Infrastructure.Commands;
 using CV19.Models.Decanat;
+using CV19.Services.Interfaces;
 using CV19.ViewsModels.Base;
 using Microsoft.Extensions.DependencyInjection;
 using OxyPlot;
@@ -19,6 +20,7 @@ namespace CV19.ViewsModels
     {
         /* ------------------------------------------------------------------------------------------------------------------- */
         public CountriesStatisticViewModel CountriesStatistic { get; }
+        private readonly IAsyncDataService asyncData;
         /* ------------------------------------------------------------------------------------------------------------------- */
         #region Свойства
         #region Непонятный элемент
@@ -49,6 +51,7 @@ namespace CV19.ViewsModels
         #endregion
         #region SelectedGroupStudents + Filter
         private readonly CollectionViewSource _SelectedGroupStudents = new CollectionViewSource();
+
         public ICollectionView SelectedGroupStudents => _SelectedGroupStudents?.View;
 
         /// <summary>
@@ -223,7 +226,7 @@ namespace CV19.ViewsModels
         #endregion
 
         /* ------------------------------------------------------------------------------------------------------------------- */
-        public MainWindowViewModel(CountriesStatisticViewModel Statistic)
+        public MainWindowViewModel(CountriesStatisticViewModel Statistic, IAsyncDataService asyncData)
         {
             #region Команды
             CloseApplicationCommand = new LambdaCommand(OnCloseApplicationCommandExecuting, CanCloseApplicationCommandExecute);
@@ -233,6 +236,7 @@ namespace CV19.ViewsModels
             #endregion
 
             CountriesStatistic = Statistic;
+            this.asyncData = asyncData;
             Statistic.MainModel = this;
 
             var data_points = new List<OxyPlot.DataPoint>((int)(360 / 0.1));
