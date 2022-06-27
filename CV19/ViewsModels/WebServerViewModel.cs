@@ -1,4 +1,5 @@
 ﻿using CV19.Infrastructure.Commands;
+using CV19.Services.Interfaces;
 using CV19.ViewsModels.Base;
 using System;
 using System.Collections.Generic;
@@ -11,20 +12,24 @@ namespace CV19.ViewsModels
 {
     public class WebServerViewModel : BaseViewModel
     {
-        private bool _Enable;
 
         public bool Enable
         {
-            get { return _Enable; }
-            set { Set(ref _Enable, value); }
+            get { return Server.Enable; }
+            set
+            { 
+                Server.Enable = value;
+                OnPropertyChanged();
+            }
         }
 
         #region StartCommand
         private ICommand _StartCommdand;
-        private bool CanStartCommandExecute(object p) => !_Enable;
+        private bool CanStartCommandExecute(object p) => !Enable;
         private void OnStartCommandExecute(object p)
         {
-            Enable = true;
+            Server.Start();
+            OnPropertyChanged("Enable");
 
         }
         public ICommand StartCommdand => _StartCommdand ??= new LambdaCommand(OnStartCommandExecute, CanStartCommandExecute);
@@ -32,13 +37,20 @@ namespace CV19.ViewsModels
 
         #region StopCommand
         private ICommand _StopCommdand;
-        private bool CanStopCommandExecute(object p) => _Enable;
+        private bool CanStopCommandExecute(object p) => Enable;
         private void OnStopCommandExecute(object p)
         {
-            Enable = false;
+            Server.Stop();
+            OnPropertyChanged("Enable");
         }
         public ICommand StopCommdand => _StopCommdand ??= new LambdaCommand(OnStopCommandExecute, CanStopCommandExecute);
+
+        public IWebServerService Server { get; }
         #endregion
 
+        public WebServerViewModel(IWebServerService Server)
+        {
+            this.Server = Server;
+        }
     }
 }
