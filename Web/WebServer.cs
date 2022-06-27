@@ -4,12 +4,15 @@ using System.Net;
 
 namespace Web
 {
+    
     public class WebServer
     {
         private HttpListener _Listener;
         private readonly int _Port;
         private bool _Enabled;
         private readonly object _SyncRoot = new object();
+
+        private event EventHandler<RequestReceiverEventArgs> RequestReceiver;
 
         public int Port => _Port;
         public bool Enabled {get=> _Enabled;set { if (value) Start(); else Stop(); } }
@@ -25,7 +28,7 @@ namespace Web
                 _Listener.Prefixes.Add($"http://+:{Port}");
                 _Enabled = true;
             }
-            Listen();
+            ListenAsync();
         }
 
         public void Stop()
@@ -37,9 +40,27 @@ namespace Web
                 _Enabled = false;
             }
         }
-        private void Listen()
+        private async void ListenAsync()
         {
+            var listener = _Listener;
+            listener.Start();
 
+            HttpListenerContext context = null;
+            while (_Enabled)
+            {
+                var contex = await listener.GetContextAsync().ConfigureAwait(false);
+                ProcessRequest(context);
+            }
+            listener.Stop();
+        }
+        private void ProcessRequest(HttpListenerContext context)
+        {
+            RequestReceiver?.Invoke(this, new RequestReceiverEventArgs(context));
+        }
+        public class RequestReceiverEventArgs : EventArgs
+        {
+            public HttpListenerContext Context { get; set; }
+            public RequestReceiverEventArgs(HttpListenerContext context) => Context = context;
         }
     }
 }
