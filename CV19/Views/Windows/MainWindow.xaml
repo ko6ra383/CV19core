@@ -23,6 +23,14 @@
             <MenuItem Header="Файл">
                 <MenuItem Header="Выход" Command="{Binding CloseApplicationCommand}"/>
             </MenuItem>
+            <MenuItem Header="Сервис">
+                <MenuItem Header="Веб сервер" DataContext="{Binding WebServer}">
+                    <MenuItem Header="Включен" IsCheckable="True" IsChecked="{Binding Enable}"/>
+                    <Separator/>
+                    <MenuItem Header="Включить" Command="{Binding StartCommdand}"/>
+                    <MenuItem Header="Выключить" Command="{Binding StopCommdand}"/>
+                </MenuItem>
+            </MenuItem>
             <MenuItem Header="Справка">
                 <MenuItem Header="О программе"/>
             </MenuItem>

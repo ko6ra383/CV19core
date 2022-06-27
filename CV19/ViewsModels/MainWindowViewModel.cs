@@ -21,6 +21,8 @@ namespace CV19.ViewsModels
     {
         /* ------------------------------------------------------------------------------------------------------------------- */
         public CountriesStatisticViewModel CountriesStatistic { get; }
+        public WebServerViewModel WebServer { get; }
+
         private readonly IAsyncDataService asyncData;
         /* ------------------------------------------------------------------------------------------------------------------- */
         #region Свойства
@@ -256,7 +258,7 @@ namespace CV19.ViewsModels
         #endregion
 
         /* ------------------------------------------------------------------------------------------------------------------- */
-        public MainWindowViewModel(CountriesStatisticViewModel Statistic, IAsyncDataService asyncData)
+        public MainWindowViewModel(CountriesStatisticViewModel Statistic, IAsyncDataService asyncData, WebServerViewModel WebServer)
         {
             #region Команды
             CloseApplicationCommand = new LambdaCommand(OnCloseApplicationCommandExecuting, CanCloseApplicationCommandExecute);
@@ -269,6 +271,7 @@ namespace CV19.ViewsModels
 
             CountriesStatistic = Statistic;
             this.asyncData = asyncData;
+            this.WebServer = WebServer;
             Statistic.MainModel = this;
 
             var data_points = new List<OxyPlot.DataPoint>((int)(360 / 0.1));
