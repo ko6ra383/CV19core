@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net.Sockets;
 using System.Net;
+using System.Threading.Tasks;
 
 namespace Web
 {
@@ -48,18 +49,21 @@ namespace Web
 
             listener.Start();
 
+            HttpListenerContext context = null;
             while (_Enabled)
             {
-                var context = await listener.GetContextAsync().ConfigureAwait(false);
-                ProcessRequest(context);
+                var getContextTask = listener.GetContextAsync();
+                if(context != null)
+                    ProcessRequestAsync(context);
+                context = await getContextTask.ConfigureAwait(false);
             }
 
             listener.Stop();
         }
 
-        private void ProcessRequest(HttpListenerContext context)
+        private async void ProcessRequestAsync(HttpListenerContext context)
         {
-            RequestReceived?.Invoke(this, new RequestReceiverEventArgs(context));
+            await Task.Run(()=> RequestReceived?.Invoke(this, new RequestReceiverEventArgs(context)));
         }
     }
 

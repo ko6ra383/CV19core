@@ -27,7 +27,7 @@ namespace CV19.Services
         {
             using(var sw = new StreamWriter(e.Context.Response.OutputStream))
             {
-                sw.WriteLine("CV19 app");
+                sw.WriteLine("CV19 app "+DateTime.Now);
             }
         }
     }
