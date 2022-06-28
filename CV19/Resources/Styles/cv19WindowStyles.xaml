@@ -50,6 +50,9 @@
                   TextOptions.TextFormattingMode="Display">
                 <DockPanel>
                     <Grid Name="PART_TitleBar" DockPanel.Dock="Top" Background="WhiteSmoke">
+                        <i:Interaction.Behaviors>
+                            <b:WindowTitleBarDrag/>
+                        </i:Interaction.Behaviors>
                         <DockPanel Height="32">
                             <Image x:Name="PART_Icon" DockPanel.Dock="Left" Source="{TemplateBinding Icon}"/>
                             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
