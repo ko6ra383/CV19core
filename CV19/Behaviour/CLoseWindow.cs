@@ -1,8 +1,6 @@
 ﻿using Microsoft.Xaml.Behaviors;
-using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Media;
 
 
@@ -19,15 +17,7 @@ namespace CV19.Behaviour
         {
             var button = AssociatedObject;
 
-            DependencyObject root = button;
-            do
-            {
-                var parent = VisualTreeHelper.GetParent(root);
-                if (parent is null) break;
-                root = parent;
-            } while (true);
-
-            (root as Window)?.Close();
+            (button.FindVisualRoot() as Window)?.Close();
         }
 
         protected override void OnDetaching()
