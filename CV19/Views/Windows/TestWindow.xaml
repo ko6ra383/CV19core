@@ -6,8 +6,9 @@
         xmlns:local="clr-namespace:CV19"
         mc:Ignorable="d"
         Title="TestWindow" Height="450" Width="800" 
+        WindowStyle="None"
         Style="{StaticResource cv19WindowStyle}">
     <Grid>
-        
+        <Button VerticalAlignment="Top" Margin="30 40" Padding="20 5" HorizontalAlignment="Left" Content="kobra sas" />
     </Grid>
 </Window>
