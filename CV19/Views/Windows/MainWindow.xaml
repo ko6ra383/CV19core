@@ -11,10 +11,16 @@
         xmlns:fa="http://schemas.fontawesome.com/icons/"
         xmlns:con="clr-namespace:CV19.Infrastructure.Converters"
         xmlns:local="clr-namespace:CV19" 
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:componets="clr-namespace:CV19.Componets"
         mc:Ignorable="d"
         DataContext="{Binding MainWindowModel, Source={StaticResource Locator}}"
-        Title="{Binding Title}" Height="450" Width="800">
+        Title="{Binding Title}" Height="450" Width="900">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding CountriesStatistic.RefreshDataCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Window.Resources>
 
     </Window.Resources>
@@ -303,6 +309,7 @@
                     </Grid>
                 </DockPanel>
             </TabItem>
+            
         </TabControl>
     </DockPanel>
 </Window>
