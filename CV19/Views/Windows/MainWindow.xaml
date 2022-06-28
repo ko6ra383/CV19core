@@ -11,6 +11,7 @@
         xmlns:fa="http://schemas.fontawesome.com/icons/"
         xmlns:con="clr-namespace:CV19.Infrastructure.Converters"
         xmlns:local="clr-namespace:CV19" 
+        xmlns:b="clr-namespace:CV19.Behaviour"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:componets="clr-namespace:CV19.Componets"
         mc:Ignorable="d"
@@ -18,7 +19,7 @@
         Title="{Binding Title}" Height="450" Width="900">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding CountriesStatistic.RefreshDataCommand}"/>
+            <!--<i:InvokeCommandAction Command="{Binding CountriesStatistic.RefreshDataCommand}"/>-->
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Window.Resources>
@@ -309,7 +310,19 @@
                     </Grid>
                 </DockPanel>
             </TabItem>
-            
+            <TabItem Header="Поведение">
+                <Canvas>
+                    <Ellipse Canvas.Left="30" Canvas.Top="20" 
+                             Stroke="red" StrokeThickness="2"
+                             Fill="DarkBlue" 
+                             Width="60" Height="60">
+                        <i:Interaction.Behaviors>
+                            <!--<i:MouseDragElementBehavior />-->
+                            <b:DragInCanvas/>
+                        </i:Interaction.Behaviors>
+                    </Ellipse>
+                </Canvas>
+            </TabItem>
         </TabControl>
     </DockPanel>
 </Window>
