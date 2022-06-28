@@ -61,7 +61,7 @@
             </StatusBarItem>
             <StatusBarItem>
                 <TextBlock Text="{Binding SelectedTabIndex}" Margin="10 0 0 0" FontSize="14"/>
-            </StatusBarItem>    
+            </StatusBarItem>
         </StatusBar>
         <TabControl x:Name="tab" SelectedIndex="{Binding SelectedTabIndex}">
             <TabItem Header="Студенты">
@@ -171,7 +171,7 @@
                             </DataTemplate>
                         </GroupBox.Resources>
                         <TreeView ItemsSource="{Binding DiskRootDir.DirectoryItems}">
-                            
+
                         </TreeView>
                         <!--<ListBox ItemsSource="{Binding DiskRootDir.DirectoryItems}"
                                  SelectedItem="{Binding SelectedDirectory}"
@@ -318,9 +318,16 @@
                              Width="60" Height="60">
                         <i:Interaction.Behaviors>
                             <!--<i:MouseDragElementBehavior />-->
-                            <b:DragInCanvas/>
+                            <b:DragInCanvas x:Name="dragObj"/>
                         </i:Interaction.Behaviors>
                     </Ellipse>
+                    <Button Content="Close window" Canvas.Left="385" Canvas.Top="10" >
+                        <i:Interaction.Behaviors>
+                            <b:CLoseWindow />
+                        </i:Interaction.Behaviors>
+                    </Button>
+                    <TextBlock Text="{Binding XValue, ElementName=dragObj}" FontSize="15" Canvas.Left="30" Canvas.Top="110"/>
+                    <TextBlock Text="{Binding YValue, ElementName=dragObj}" FontSize="15" Canvas.Left="30" Canvas.Top="140"/>
                 </Canvas>
             </TabItem>
         </TabControl>

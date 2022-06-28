@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Xaml.Behaviors;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using Microsoft.Xaml.Behaviors;
 
 namespace CV19.Behaviour
 {
@@ -15,6 +10,22 @@ namespace CV19.Behaviour
     {
         private Point _StartPoint;
         private Canvas _Canvas;
+
+        public static readonly DependencyProperty XValueProperty =
+            DependencyProperty.Register(
+                nameof(XValue),
+                typeof(double),
+                typeof(DragInCanvas),
+                new PropertyMetadata(default(double)));
+        public double XValue { get => (double)GetValue(XValueProperty); set => SetValue(XValueProperty, value); }
+
+        public static readonly DependencyProperty YValueProperty =
+            DependencyProperty.Register(
+                nameof(YValue),
+                typeof(double),
+                typeof(DragInCanvas),
+                new PropertyMetadata(default(double)));
+        public double YValue { get => (double)GetValue(YValueProperty); set => SetValue(YValueProperty, value); }
         protected override void OnAttached()
         {
             AssociatedObject.MouseLeftButtonDown += OnButtonDown;
@@ -38,6 +49,9 @@ namespace CV19.Behaviour
             var delta = curr_pos - _StartPoint;
             obj.SetValue(Canvas.LeftProperty, delta.X);
             obj.SetValue(Canvas.TopProperty, delta.Y);
+
+            XValue = delta.X;
+            YValue = delta.Y;
         }
         private void OnMouseUp(object sender, MouseEventArgs e)
         {
