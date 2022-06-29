@@ -10,7 +10,7 @@
         Icon="../../Resources/winico.png"
         Style="{StaticResource cv19WindowStyle}">
     <WindowChrome.WindowChrome>
-        <WindowChrome CaptionHeight="35" CornerRadius="0" GlassFrameThickness="0" NonClientFrameEdges="None" ResizeBorderThickness="5" UseAeroCaptionButtons="False" />
+        <WindowChrome CaptionHeight="35" CornerRadius="0" GlassFrameThickness="5" NonClientFrameEdges="None" ResizeBorderThickness="5" UseAeroCaptionButtons="False" />
     </WindowChrome.WindowChrome>
     <Grid>
         <Button VerticalAlignment="Top" Margin="30 40" Padding="20 5" HorizontalAlignment="Left" Content="kobra sas" />

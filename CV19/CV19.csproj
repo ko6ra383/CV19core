@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\vir.png" />
     <None Remove="Resources\winico.png" />
   </ItemGroup>
 
@@ -25,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\vir.png" />
     <Resource Include="Resources\winico.png" />
   </ItemGroup>
 

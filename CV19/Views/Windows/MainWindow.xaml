@@ -15,9 +15,14 @@
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:componets="clr-namespace:CV19.Componets"
         mc:Ignorable="d"
-        
         DataContext="{Binding MainWindowModel, Source={StaticResource Locator}}"
-        Title="{Binding Title}" Height="450" Width="900">
+        Title="{Binding Title}" Height="450" Width="900"
+        WindowStyle="None"
+        Icon="../../Resources/vir.png"
+        Style="{StaticResource cv19WindowStyle}">
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="35" CornerRadius="0" GlassFrameThickness="5" NonClientFrameEdges="None" ResizeBorderThickness="5" UseAeroCaptionButtons="False" />
+    </WindowChrome.WindowChrome>
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <!--<i:InvokeCommandAction Command="{Binding CountriesStatistic.RefreshDataCommand}"/>-->
