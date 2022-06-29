@@ -14,6 +14,7 @@
         xmlns:b="clr-namespace:CV19.Behaviour"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:componets="clr-namespace:CV19.Componets"
+        xmlns:cmd="clr-namespace:CV19.Infrastructure.Commands"
         mc:Ignorable="d"
         DataContext="{Binding MainWindowModel, Source={StaticResource Locator}}"
         Title="{Binding Title}" Height="450" Width="900"
@@ -42,6 +43,12 @@
                     <Separator/>
                     <MenuItem Header="Включить" Command="{Binding StartCommdand}"/>
                     <MenuItem Header="Выключить" Command="{Binding StopCommdand}"/>
+                </MenuItem>
+                <Separator/>
+                <MenuItem Header="Управление студентами">
+                    <MenuItem.Command>
+                        <cmd:ManageStudentsCommand/>
+                    </MenuItem.Command>
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="Справка">
