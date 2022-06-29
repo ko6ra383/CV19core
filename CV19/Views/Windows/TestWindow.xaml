@@ -1,0 +1,18 @@
+﻿<Window x:Class="CV19.TestWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CV19"
+        mc:Ignorable="d"
+        Title="TestWindow" Height="450" Width="800" 
+        WindowStyle="None"
+        Icon="../../Resources/winico.png"
+        Style="{StaticResource cv19WindowStyle}">
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="35" CornerRadius="0" GlassFrameThickness="5" NonClientFrameEdges="None" ResizeBorderThickness="5" UseAeroCaptionButtons="False" />
+    </WindowChrome.WindowChrome>
+    <Grid>
+        <Button VerticalAlignment="Top" Margin="30 40" Padding="20 5" HorizontalAlignment="Left" Content="kobra sas" />
+    </Grid>
+</Window>

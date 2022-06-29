@@ -11,10 +11,23 @@
         xmlns:fa="http://schemas.fontawesome.com/icons/"
         xmlns:con="clr-namespace:CV19.Infrastructure.Converters"
         xmlns:local="clr-namespace:CV19" 
+        xmlns:b="clr-namespace:CV19.Behaviour"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:componets="clr-namespace:CV19.Componets"
         mc:Ignorable="d"
         DataContext="{Binding MainWindowModel, Source={StaticResource Locator}}"
-        Title="{Binding Title}" Height="450" Width="800">
+        Title="{Binding Title}" Height="450" Width="900"
+        WindowStyle="None"
+        Icon="../../Resources/vir.png"
+        Style="{StaticResource cv19WindowStyle}">
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="35" CornerRadius="0" GlassFrameThickness="5" NonClientFrameEdges="None" ResizeBorderThickness="5" UseAeroCaptionButtons="False" />
+    </WindowChrome.WindowChrome>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <!--<i:InvokeCommandAction Command="{Binding CountriesStatistic.RefreshDataCommand}"/>-->
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Window.Resources>
 
     </Window.Resources>
@@ -54,7 +67,7 @@
             </StatusBarItem>
             <StatusBarItem>
                 <TextBlock Text="{Binding SelectedTabIndex}" Margin="10 0 0 0" FontSize="14"/>
-            </StatusBarItem>    
+            </StatusBarItem>
         </StatusBar>
         <TabControl x:Name="tab" SelectedIndex="{Binding SelectedTabIndex}">
             <TabItem Header="Студенты">
@@ -164,7 +177,7 @@
                             </DataTemplate>
                         </GroupBox.Resources>
                         <TreeView ItemsSource="{Binding DiskRootDir.DirectoryItems}">
-                            
+
                         </TreeView>
                         <!--<ListBox ItemsSource="{Binding DiskRootDir.DirectoryItems}"
                                  SelectedItem="{Binding SelectedDirectory}"
@@ -302,6 +315,26 @@
                         <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"  Text="{Binding DataValue}" FontSize="30"/>
                     </Grid>
                 </DockPanel>
+            </TabItem>
+            <TabItem Header="Поведение">
+                <Canvas>
+                    <Ellipse Canvas.Left="30" Canvas.Top="20" 
+                             Stroke="red" StrokeThickness="2"
+                             Fill="DarkBlue" 
+                             Width="60" Height="60">
+                        <i:Interaction.Behaviors>
+                            <!--<i:MouseDragElementBehavior />-->
+                            <b:DragInCanvas x:Name="dragObj"/>
+                        </i:Interaction.Behaviors>
+                    </Ellipse>
+                    <Button Content="Close window" Canvas.Left="385" Canvas.Top="10" >
+                        <i:Interaction.Behaviors>
+                            <b:CLoseWindow />
+                        </i:Interaction.Behaviors>
+                    </Button>
+                    <TextBlock Text="{Binding XValue, ElementName=dragObj}" FontSize="15" Canvas.Left="30" Canvas.Top="110"/>
+                    <TextBlock Text="{Binding YValue, ElementName=dragObj}" FontSize="15" Canvas.Left="30" Canvas.Top="140"/>
+                </Canvas>
             </TabItem>
         </TabControl>
     </DockPanel>
