@@ -25,7 +25,7 @@ namespace CV19.Services.Students
                         Name = $"Студент {id}",
                         Surname = $"Фамилия {id++}",
                         Birtday = DateTime.Now.Subtract(TimeSpan.FromDays(300 * random.Next(19, 30))),
-                        Rating = random.Next() * 100
+                        Rating = random.Next(2, 5) + random.NextDouble()
                     });
             }
             return groups.SelectMany(g => g.Students).ToArray();

@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CV19.Views.Windows"
+        xmlns:m="clr-namespace:CV19.Models.Decanat"
         mc:Ignorable="d"
         DataContext="{Binding StudentsManagement, Source={StaticResource Locator}}"
         Title="{Binding Title}" Height="450" Width="800">
@@ -13,9 +14,46 @@
             <ColumnDefinition Width="200" MinWidth="200"/>
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        
-        <GroupBox Grid.Column="0" Header="Группы"/>
-        <GroupBox Grid.Column="1" Header="Студенты"/>
+
+        <GroupBox Grid.Column="0" Header="Группы">
+            <ListBox ItemsSource="{Binding Groups}" SelectedItem="{Binding SelectedGroup}" SelectedIndex="0">
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    </Style>
+                </ListBox.ItemContainerStyle>
+                <ListBox.ItemTemplate>
+                    <DataTemplate DataType="m:Group" >
+                        <DockPanel LastChildFill="True">
+                            <TextBlock DockPanel.Dock="Right" Text="{Binding Students.Count, StringFormat=' ({0})'}"/>
+                            <TextBlock Text="{Binding Name}"/>
+                        </DockPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </GroupBox>
+        <GroupBox Grid.Column="1" Header="Студенты">
+            <ListBox ItemsSource="{Binding SelectedGroup.Students}" SelectedItem="{Binding SelectedStudent}">
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    </Style>
+                </ListBox.ItemContainerStyle>
+                <ListBox.ItemTemplate>
+                    <DataTemplate DataType="m:Student" >
+                        <TextBlock>
+                            <TextBlock.ToolTip>
+                                <TextBlock>
+                                   Средний балл: <TextBlock Text="{Binding Rating, StringFormat='#.##'}"/>
+                                </TextBlock>
+                            </TextBlock.ToolTip>
+                            <TextBlock Text="{Binding Surname}"/>
+                            <TextBlock Text="{Binding Name}"/>
+                        </TextBlock>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </GroupBox>
         <GroupBox Grid.Column="2" Header="Инфомация"/>
 
         <GridSplitter Grid.Column="0" HorizontalAlignment="Right" Width="3"/> 
