@@ -1,4 +1,5 @@
-﻿using CV19.Models.Decanat;
+﻿using CV19.Infrastructure.Commands;
+using CV19.Models.Decanat;
 using CV19.Services.Students;
 using CV19.ViewsModels.Base;
 using System;
@@ -6,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace CV19.ViewsModels
 {
@@ -41,6 +43,28 @@ namespace CV19.ViewsModels
             get => _SelectedGroup;
             set => Set(ref _SelectedGroup, value);
         }
+        #endregion
+        #region Команды
+        #region EditStudentCommand
+        private ICommand _EditStudentCommand;
+        private bool CanEditStudentCommandExecute(object p) => p is Student;
+        private void OnEditStudentCommandExecute(object p)
+        {
+            var student = (Student)p;
+
+        }
+        public ICommand EditStudentCommand => _EditStudentCommand ??= new LambdaCommand(OnEditStudentCommandExecute, CanEditStudentCommandExecute);
+        #endregion
+        #region CreateStudentCommand
+        private ICommand _CreateStudentCommand;
+        private bool CanCreateStudentCommandExecute(object p) => p is Group;
+        private void OnCreateStudentCommandExecute(object p)
+        {
+            var group = (Group)p;
+
+        }
+        public ICommand CreateStudentCommand => _CreateStudentCommand ??= new LambdaCommand(OnCreateStudentCommandExecute, CanCreateStudentCommandExecute);
+        #endregion
         #endregion
         public StudentsManagementViewModel(StudentsManager studentsManager) { _StudentsManager = studentsManager; }
 
