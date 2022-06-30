@@ -36,8 +36,10 @@
         <GroupBox Grid.Column="1" Header="Студенты">
             <DockPanel>
                 <UniformGrid Rows="1" DockPanel.Dock="Bottom" Margin="0 3">
-                    <Button fa:Awesome.Content="Solid_Plus" Foreground="Green" Padding="0 5"/>
-                    <Button fa:Awesome.Content="Solid_UserEdit" Foreground="YellowGreen" Padding="0 5"/>
+                    <Button fa:Awesome.Content="Solid_Plus" Foreground="Green" Padding="0 5" 
+                            Command="{Binding CreateStudentCommand}" CommandParameter="{Binding SelectedGroup}"/>
+                    <Button fa:Awesome.Content="Solid_UserEdit" Foreground="YellowGreen" Padding="0 5" 
+                            Command="{Binding EditStudentCommand}" CommandParameter="{Binding SelectedStudent}"/>
                 </UniformGrid>
                 <ListBox ItemsSource="{Binding SelectedGroup.Students}" SelectedItem="{Binding SelectedStudent}" SelectedIndex="0">
                     <ListBox.ItemContainerStyle>

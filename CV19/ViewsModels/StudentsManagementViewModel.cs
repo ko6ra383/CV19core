@@ -1,12 +1,14 @@
 ﻿using CV19.Infrastructure.Commands;
 using CV19.Models.Decanat;
 using CV19.Services.Students;
+using CV19.Views.Windows;
 using CV19.ViewsModels.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace CV19.ViewsModels
@@ -51,7 +53,16 @@ namespace CV19.ViewsModels
         private void OnEditStudentCommandExecute(object p)
         {
             var student = (Student)p;
-
+            var dlg = new StudentsEditorWindow{
+                Name = student.Name,
+                SurName = student.Surname,
+                Birthday = student.Birtday,
+                Rating = student.Rating
+            };
+            if (dlg.ShowDialog() == true)
+                MessageBox.Show("Пользователь изменен");
+            else
+                MessageBox.Show("Отмена редактирования");
         }
         public ICommand EditStudentCommand => _EditStudentCommand ??= new LambdaCommand(OnEditStudentCommandExecute, CanEditStudentCommandExecute);
         #endregion

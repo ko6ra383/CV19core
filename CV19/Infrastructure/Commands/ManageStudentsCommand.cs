@@ -24,7 +24,7 @@ namespace CV19.Infrastructure.Commands
             window.Closed += OnWindowClosed;
             window.ShowDialog();
         }
-
+        
         private void OnWindowClosed(object? sender, EventArgs e)
         {
             ((Window)sender).Closed -= OnWindowClosed;
