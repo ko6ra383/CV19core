@@ -19,5 +19,19 @@ namespace CV19.Services.Students
             _Students = students;
             _Groups = groups;
         }
+        public void Update(Student stud) => _Students.Update(stud.Id, stud);
+
+        public bool Create(Student student, string groupName)
+        {
+            var group = _Groups.GetName(groupName);
+            if(group is null)
+            {
+                group = new Group() { Name = groupName };
+                _Groups.Add(group);
+            }
+            group.Students.Add(student);
+            _Students.Add(student);
+            return true;
+        }
     }
 }

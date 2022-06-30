@@ -22,6 +22,7 @@ namespace CV19.Services.Students
                 for (var i = 0; i < 10; i++)
                     g.Students.Add(new Student
                     {
+                        Id = id,
                         Name = $"Студент {id}",
                         Surname = $"Фамилия {id++}",
                         Birtday = DateTime.Now.Subtract(TimeSpan.FromDays(300 * random.Next(19, 30))),
