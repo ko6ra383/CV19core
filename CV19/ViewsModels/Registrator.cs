@@ -9,6 +9,7 @@ namespace CV19.ViewsModels
             services.AddSingleton<MainWindowViewModel>();
             services.AddSingleton<CountriesStatisticViewModel>();
             services.AddSingleton<WebServerViewModel>();
+            services.AddTransient<StudentsManagementViewModel>();
             return services;
         }
     }
